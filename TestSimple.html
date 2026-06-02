@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; text-align: center; }
+    h1 { color: #263262; }
+    .success { background: #10b981; color: white; padding: 20px; border-radius: 10px; margin: 20px; }
+  </style>
+</head>
+<body>
+  <h1>UNACOM - Prueba</h1>
+  <div class="success">
+    ✅ Si ves esto, la app funciona
+  </div>
+  <p>Hora: <span id="hora"></span></p>
+  <script>
+    document.getElementById('hora').textContent = new Date().toLocaleTimeString();
+    google.script.run
+      .withSuccessHandler(function(r) { alert('Conexión exitosa: ' + JSON.stringify(r)); })
+      .withFailureHandler(function(e) { alert('Error: ' + e); })
+      .testSistemaCompleto();
+  </script>
+</body>
+</html>

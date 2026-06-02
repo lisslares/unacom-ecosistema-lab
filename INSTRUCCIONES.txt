@@ -1,0 +1,11 @@
+Este es mi proyecto de Google Apps Script para el Ecosistema Laboratorio de Saberes Populares.
+
+Las reglas principales son
+- El formulario tiene 4 pasos Mapeo, Saber, Perfiles, Cierre.
+- Las líneas de sistematización son historia_lucha, haceres_saberes, feminismo_comunal, innovacion_popular.
+- Los datos territoriales (estado, municipio, parroquia) vienen de una hoja Territorio.
+- Se genera un código UNACOM-XXX-2026-XXXX.
+- Las fotos van a Cloud Storage y a Drive.
+- Se envía un PDF por correo.
+
+Mi código actual está pegado en un archivo que me diste. Quiero que me ayudes a mejorarlo o a entenderlo.

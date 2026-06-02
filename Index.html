@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <base target="_top">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --unacom-azul: #263262;
+      --unacom-colorado: #dc325f;
+      --unacom-mostaza: #685e4d;
+      --fondo-claro: #f4f6f9;
+      --text-oscuro: #2c3e50;
+      --text-gris: #64748b;
+      --borde-suave: #e2e8f0;
+      --success: #10b981;
+      --error: #ef4444;
+    }
+    * { box-sizing: border-box; }
+body {
+      font-family: 'Montserrat', sans-serif;
+      background: #1a1a2e;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 850px;
+      margin: auto;
+      background: #ffffff;
+      padding: 45px 50px;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      border-top: 6px solid var(--unacom-mostaza);
+    }
+    h2 {
+      font-family: 'Kaushan Script', cursive;
+      color: var(--unacom-azul);
+      text-align: center;
+      font-size: 2.8rem;
+      margin-bottom: 0;
+      line-height: 1.3;
+    }
+    .header-unacom {
+      text-align: center;
+      font-weight: 700;
+      color: var(--text-gris);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 40px;
+    }
+    h3 {
+      color: var(--unacom-azul);
+      margin-top: 40px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--borde-suave);
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    h4 {
+      color: var(--unacom-colorado);
+      font-size: 1.05rem;
+      margin-bottom: 15px;
+      margin-top: 0;
+      font-weight: 600;
+    }
+    .intro-seccion {
+      font-size: 13px;
+      color: var(--text-oscuro);
+      line-height: 1.7;
+      margin-bottom: 30px;
+      background: linear-gradient(135deg, rgba(38,50,98,0.04), rgba(104,94,77,0.04));
+      padding: 18px 22px;
+      border-left: 5px solid var(--unacom-azul);
+      border-radius: 6px;
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      margin-top: 20px;
+      margin-bottom: 6px;
+      color: var(--unacom-azul);
+      font-size: 0.9rem;
+    }
+    .hint {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--text-gris);
+      margin-bottom: 8px;
+      font-style: italic;
+      line-height: 1.4;
+    }
+    .required-star {
+      color: var(--unacom-colorado);
+      font-weight: bold;
+    }
+    input[type="text"], input[type="date"], input[type="number"], input[type="email"], select, textarea, input[type="file"] {
+      width: 100%;
+      padding: 15px 16px;
+      border: 1.5px solid var(--borde-suave);
+      border-radius: 10px;
+      font-size: 14px;
+      font-family: 'Montserrat', sans-serif;
+      background: #fafbfc;
+      transition: all 0.3s ease;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--unacom-azul);
+      box-shadow: 0 0 0 4px rgba(38,50,98,0.08);
+      background: #ffffff;
+    }
+    input.error, select.error, textarea.error {
+      border-color: var(--error) !important;
+      box-shadow: 0 0 0 4px rgba(239,68,68,0.08) !important;
+      background: #fff5f5 !important;
+    }
+    input.valid, select.valid, textarea.valid {
+      border-color: var(--success) !important;
+      box-shadow: 0 0 0 4px rgba(16,185,129,0.08) !important;
+    }
+    .error-message {
+      color: var(--error);
+      font-size: 0.75rem;
+      margin-top: 5px;
+      display: none;
+      font-weight: 600;
+    }
+    .error-message.show {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .checkbox-group {
+      margin-top: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      font-weight: 500;
+      color: var(--text-oscuro);
+      padding: 12px 16px;
+      border-radius: 8px;
+      transition: all 0.2s;
+      margin: 0;
+      cursor: pointer;
+      min-height: 46px;
+      background: #fafbfc;
+      border: 1px solid transparent;
+    }
+    .checkbox-item:hover {
+      background: rgba(38,50,98,0.04);
+      border-color: var(--borde-suave);
+    }
+    input[type="checkbox"] {
+      width: auto !important;
+      margin-right: 14px;
+      transform: scale(1.3);
+      accent-color: var(--unacom-azul);
+      cursor: pointer;
+      min-width: 20px;
+    }
+    .linea-container {
+      display: none;
+      margin-bottom: 25px;
+      padding: 28px;
+      background: #ffffff;
+      border-radius: 14px;
+      border: 1px solid var(--borde-suave);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+      border-left: 5px solid var(--unacom-colorado);
+    }
+    .progress-container {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 40px;
+      background: #f1f5f9;
+      border-radius: 25px;
+      padding: 5px;
+      flex-wrap: wrap;
+      gap: 3px;
+    }
+    .step {
+      flex: 1;
+      text-align: center;
+      padding: 12px 8px;
+      font-weight: 600;
+      color: var(--text-gris);
+      font-size: 0.8rem;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      min-width: 60px;
+    }
+    .step.active {
+      background: var(--unacom-azul);
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(38,50,98,0.3);
+    }
+    .botones-navegacion {
+      display: flex;
+      gap: 15px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+    button {
+      background: linear-gradient(135deg, var(--unacom-colorado), #c92a53);
+      color: #ffffff;
+      padding: 16px 28px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 20px rgba(220,50,95,0.3);
+      min-height: 54px;
+    }
+    button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(220,50,95,0.4);
+    }
+    button:active { transform: translateY(0); }
+    button:disabled {
+      background: #94a3b8;
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
+    }
+    .btn-secundario {
+      background: transparent;
+      color: var(--unacom-azul);
+      border: 2px solid var(--unacom-azul);
+      box-shadow: none;
+      font-weight: 600;
+    }
+    .btn-secundario:hover {
+      background: rgba(38,50,98,0.06);
+      color: var(--unacom-azul);
+      box-shadow: none;
+      transform: translateY(0);
+    }
+    hr {
+      border: 0;
+      border-top: 1.5px dashed var(--borde-suave);
+      margin: 35px 0;
+    }
+    .toast {
+      position: fixed;
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--unacom-azul);
+      color: white;
+      padding: 16px 32px;
+      border-radius: 30px;
+      font-size: 14px;
+      z-index: 9999;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+      animation: slideUp 0.3s ease;
+      font-weight: 600;
+      text-align: center;
+      max-width: 90%;
+      letter-spacing: 0.5px;
+    }
+    .toast.error { background: var(--error); }
+    .toast.success { background: var(--success); }
+    @keyframes slideUp {
+      from { transform: translate(-50%, 100%); opacity: 0; }
+      to { transform: translate(-50%, 0); opacity: 1; }
+    }
+    .loading-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(26,26,46,0.97);
+      z-index: 9998;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .loading-overlay.show { display: flex; }
+    .spinner {
+      width: 55px;
+      height: 55px;
+      border: 4px solid rgba(255,255,255,0.2);
+      border-top-color: var(--unacom-colorado);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-text {
+      color: white;
+      margin-top: 20px;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+    }
+
+    /* ========== RESPONSIVE MÓVIL ========== */
+    @media screen and (max-width: 768px) {
+      body { padding: 0; }
+      .container {
+        padding: 20px 14px;
+        border-radius: 0;
+        margin: 0;
+        max-width: 100%;
+        box-shadow: none;
+        border-top: 4px solid var(--unacom-mostaza);
+      }
+      h2 { font-size: 1.6rem; }
+      .header-unacom { font-size: 0.7rem; letter-spacing: 2px; margin-bottom: 25px; }
+      h3 { font-size: 1.1rem; margin-top: 25px; }
+      input[type="text"], input[type="date"], input[type="number"], input[type="email"], select, textarea, input[type="file"] {
+        padding: 14px 12px;
+        font-size: 16px !important;
+        min-height: 50px;
+        border-radius: 8px;
+      }
+      textarea { min-height: 80px; }
+      .checkbox-item { padding: 12px 12px; font-size: 13px; min-height: 42px; }
+      input[type="checkbox"] { transform: scale(1.2); margin-right: 10px; }
+      .progress-container { margin-bottom: 25px; border-radius: 18px; padding: 3px; }
+      .step { padding: 8px 3px; font-size: 0.6rem; }
+      .linea-container { padding: 18px 12px; margin-bottom: 18px; }
+      button { padding: 15px; font-size: 13px; min-height: 50px; letter-spacing: 1px; }
+      .botones-navegacion { flex-direction: column; gap: 10px; margin-top: 25px; }
+      label { font-size: 13px; margin-top: 14px; }
+      .hint { font-size: 0.7rem; }
+      .intro-seccion { padding: 12px 14px; font-size: 12px; }
+      #pantalla_exito h3 { font-size: 1.4rem !important; }
+      #codigo_exito_texto { font-size: 1.4rem !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="spinner"></div>
+    <p class="loading-text" id="loadingText">Procesando...</p>
+  </div>
+
+  <div class="container">
+    <h2>Sistema de Registro<br>Laboratorio de sistematización  para la construcción de saberes populares </h2>
+    <p class="header-unacom">Ecosistema Laboratorio de saberes populares · v2.0.1</p>
+
+    <div class="progress-container">
+      <div class="step active" id="step0">📍 Mapeo</div>
+      <div class="step" id="step1">📝 Saber</div>
+      <div class="step" id="step2">👥 Perfiles</div>
+      <div class="step" id="step3">✅ Cierre</div>
+    </div>
+
+    <form id="formulario_laboratorio" novalidate>
+
+      <!-- ===== FASE 1: MAPEO ===== -->
+      <div class="form-phase" id="pantalla0">
+        <div class="intro-seccion"><strong>📍 Mapeo del territorio:</strong> Ubicación geográfica y datos institucionales de la experiencia. Toda la información queda protegida en el Ecosistema UNACOM.</div>
+        
+        <h3>📋 Datos de quien registra</h3>
+        
+        <label><span class="required-star">*</span> Nombre completo de quien registra:</label>
+        <span class="hint">Persona que está realizando el abordaje en territorio. Ej: María Gabriela Rodríguez Pérez</span>
+        <input type="text" id="nombre_registrador" required data-validate="notEmpty">
+        <span class="error-message" id="error_nombre_registrador">Este campo es obligatorio</span>
+
+        <label><span class="required-star">*</span> Teléfono de contacto:</label>
+        <span class="hint">Número activo con prefijo. Ej: 0412-5556677 o 0212-1234567</span>
+        <input type="text" id="telefono_registrador" required data-validate="phone">
+        <span class="error-message" id="error_telefono_registrador">Mínimo 7 dígitos</span>
+
+        <label><span class="required-star">*</span> Correo electrónico:</label>
+        <span class="hint">Aquí recibirá el informe PDF con el código de registro. Verifique que esté bien escrito.</span>
+        <input type="email" id="correo_registrador" required data-validate="email">
+        <span class="error-message" id="error_correo_registrador">Ingrese un correo válido</span>
+
+        <label><span class="required-star">*</span> ¿Pertenece a la UNACOM?</label>
+        <span class="hint">Indique si forma parte de la estructura institucional de la Universidad Nacional Comunal.</span>
+        <select id="pertenece_unacom" onchange="mostrarOpcionInstitucional()" required data-validate="notEmpty">
+          <option value="">Seleccione una opción...</option>
+          <option value="Sí">Sí, pertenezco a la UNACOM</option>
+          <option value="No">No, soy de otra organización</option>
+        </select>
+        <span class="error-message" id="error_pertenece_unacom">Seleccione una opción</span>
+
+        <div id="contenedor_ente_externo" style="display:none;">
+          <label>Institución, comunidad o ente al que pertenece:</label>
+          <span class="hint">Ej: Consejo Comunal "Los Sauces", Fundación Tierra Viva, Colectivo Somos Pueblo</span>
+          <input type="text" id="ente_externo" placeholder="Nombre de su organización...">
+        </div>
+
+        <div id="contenedor_direccion_unacom" style="display:none;">
+          <label>Vicerrectorado y dirección UNACOM:</label>
+          <span class="hint">Ej: Vicerrectorado de Democracia y Sociedad Comunal - Dirección de Investigación Social</span>
+          <input type="text" id="direccion_unacom" placeholder="Vicerrectorado y dirección...">
+        </div>
+
+        <h3>🗺️ Identificación de la experiencia</h3>
+
+        <label><span class="required-star">*</span> Nombre de la experiencia:</label>
+        <span class="hint">Nombre de la organización, proyecto, práctica o experiencia comunal a sistematizar. Ej: "Frente de Mujeres Productoras de Café Orgánico"</span>
+        <input type="text" id="nombre_experiencia" required data-validate="notEmpty">
+        <span class="error-message" id="error_nombre_experiencia">Este campo es obligatorio</span>
+
+        <label><span class="required-star">*</span> Fecha de abordaje:</label>
+        <span class="hint">Día en que se realiza la visita al territorio para el levantamiento de información.</span>
+        <input type="date" id="fecha_abordaje" required data-validate="notEmpty">
+        <span class="error-message" id="error_fecha_abordaje">Seleccione una fecha</span>
+
+        <label>Año de inicio de la experiencia (aproximado):</label>
+        <span class="hint">Año en que comenzó esta práctica u organización. Debe ser un valor entre 1900 y 2026. Ej: 2015</span>
+        <input type="number" id="fecha_iniciacion_experiencia" placeholder="Ej: 2018" min="1900" max="2026">
+
+        <label><span class="required-star">*</span> Estado:</label>
+        <span class="hint">Seleccione el estado donde se ubica la experiencia. Los datos se cargan desde el Sistema Territorial.</span>
+        <select id="estado" onchange="cargarMunicipios()" required data-validate="notEmpty"><option value="">Cargando estados...</option></select>
+        <span class="error-message" id="error_estado">Seleccione un estado</span>
+
+        <label><span class="required-star">*</span> Municipio:</label>
+        <span class="hint">Aparecerán las opciones después de seleccionar el estado.</span>
+        <select id="municipio" onchange="cargarParroquias()" disabled required data-validate="notEmpty"><option value="">Seleccione un estado primero</option></select>
+        <span class="error-message" id="error_municipio">Seleccione un municipio</span>
+
+        <label><span class="required-star">*</span> Parroquia:</label>
+        <span class="hint">Aparecerán las opciones después de seleccionar el municipio.</span>
+        <select id="parroquia" disabled required data-validate="notEmpty"><option value="">Seleccione un municipio primero</option></select>
+        <span class="error-message" id="error_parroquia">Seleccione una parroquia</span>
+
+        <label><span class="required-star">*</span> Comuna o circuito comunal:</label>
+        <span class="hint">Nombre de la comuna, circuito comunal o consejo comunal principal. Ej: Comuna "El Maizal", Circuito Comunal "Cacique Tiuna"</span>
+        <input type="text" id="comuna_circuito_comunal" required data-validate="notEmpty">
+        <span class="error-message" id="error_comuna_circuito_comunal">Este campo es obligatorio</span>
+
+        <label><span class="required-star">*</span> Tipo de organización:</label>
+        <span class="hint">Forma organizativa principal de la experiencia registrada.</span>
+        <select id="tipo_organizacion" required data-validate="notEmpty">
+          <option value="">Seleccione el tipo...</option>
+          <option value="Unidad Socioproductiva">Unidad Socioproductiva</option>
+          <option value="Consejo Comunal">Consejo Comunal</option>
+          <option value="Comuna">Comuna</option>
+          <option value="EPS">EPS (Empresa de Propiedad Social)</option>
+          <option value="Colectivo">Colectivo / Movimiento Social</option>
+        </select>
+        <span class="error-message" id="error_tipo_organizacion">Seleccione un tipo</span>
+
+        <h3>📚 Líneas de sistematización</h3>
+        <label><span class="required-star">*</span> Seleccione las líneas de trabajo:</label>
+        <span class="hint">Puede marcar varias. Si es un primer acercamiento, marque solo "Contacto inicial". Si marca otras líneas, en el siguiente paso se desplegarán formularios detallados para cada una.</span>
+        <div class="checkbox-group" id="lineas_checkbox_group">
+          <label class="checkbox-item" style="background:rgba(104,94,77,0.08);border:2px dashed var(--unacom-mostaza);">
+            <input type="checkbox" name="lineas_sistematizacion" value="contacto_inicial" id="chk_contacto_inicial" onchange="bloquearLineas()"> 📋 Contacto inicial (exploratorio)
+          </label>
+          <hr style="margin:10px 0;">
+          <label class="checkbox-item"><input type="checkbox" name="lineas_sistematizacion" value="historia_lucha" class="chk_linea"> ✊ Historia de lucha y gobernanza comunal</label>
+          <label class="checkbox-item"><input type="checkbox" name="lineas_sistematizacion" value="haceres_saberes" class="chk_linea"> 🧶 Haceres y saberes populares</label>
+          <label class="checkbox-item"><input type="checkbox" name="lineas_sistematizacion" value="feminismo_comunal" class="chk_linea"> 🌸 Feminismo comunal</label>
+          <label class="checkbox-item"><input type="checkbox" name="lineas_sistematizacion" value="innovacion_popular" class="chk_linea"> 💡 Innovación popular y tecnológica</label>
+        </div>
+        <span class="error-message" id="error_lineas">Seleccione al menos una línea</span>
+
+        <button type="button" onclick="irA(1,0)" style="margin-top:35px;">Siguiente paso ➡</button>
+      </div>
+
+      <!-- ===== FASE 2: SABER COMUNERO ===== -->
+      <div class="form-phase" id="pantalla1" style="display:none;">
+        <h3>📝 Saber comunero</h3>
+        <div class="intro-seccion">El corazón de la sistematización. Describa la esencia del saber, práctica o experiencia comunal. Los campos específicos de cada línea aparecerán a continuación.</div>
+
+        <label><span class="required-star">*</span> Descripción general del saber o práctica comunera:</label>
+        <span class="hint">Resuma en al menos 20 caracteres la esencia de esta experiencia. ¿Qué hacen? ¿Cómo lo hacen? ¿Por qué es importante para la comunidad?</span>
+        <textarea id="descripcion_general_saber" rows="5" required data-validate="minLength" data-min="20" placeholder="Describa aquí la práctica comunal..."></textarea>
+        <span class="error-message" id="error_descripcion_general_saber">Mínimo 20 caracteres</span>
+
+        <hr>
+
+        <div id="contenedor_historia_lucha" class="linea-container">
+          <h4>✊ Historia de lucha y gobernanza comunal</h4>
+          <label>Descripción general de la práctica:</label>
+          <span class="hint">¿Cómo se organiza políticamente la comunidad? ¿Qué hitos históricos han marcado su lucha?</span>
+          <textarea name="hl_descripcion_general" rows="3"></textarea>
+          <label>Innovación organizativa o de gobernanza:</label>
+          <span class="hint">¿Qué formas novedosas de autogobierno o toma de decisiones han desarrollado?</span>
+          <textarea name="hl_innovacion" rows="3"></textarea>
+          <label>Retos solucionados en esta línea:</label>
+          <span class="hint">¿Qué problemas lograron resolver mediante su organización?</span>
+          <textarea name="hl_retos" rows="3"></textarea>
+          <label>Otra información de interés:</label>
+          <span class="hint">Datos adicionales relevantes sobre esta línea.</span>
+          <textarea name="hl_otra_info" rows="2"></textarea>
+          <label>Relato específico de un portador:</label>
+          <span class="hint">Transcriba un testimonio o relato de algún protagonista.</span>
+          <textarea name="hl_relato" rows="4"></textarea>
+          <label>Documento de respaldo (PDF/Word):</label>
+          <span class="hint">Adjunte actas, documentos históricos, manifiestos, etc.</span>
+          <input type="file" id="hl_archivo" accept=".pdf,.doc,.docx">
+        </div>
+
+        <div id="contenedor_haceres_saberes" class="linea-container">
+          <h4>🧶 Haceres y saberes populares</h4>
+          <label>Descripción general de la práctica:</label>
+          <span class="hint">¿Qué oficio, arte o saber tradicional se preserva? ¿Quiénes lo practican?</span>
+          <textarea name="hs_descripcion_general" rows="3"></textarea>
+          <label>Secreto de oficio, innovación o técnica propia:</label>
+          <span class="hint">¿Existe alguna técnica especial, única o innovadora en este hacer?</span>
+          <textarea name="hs_innovacion" rows="3"></textarea>
+          <label>Retos solucionados en esta línea:</label>
+          <span class="hint">¿Qué desafíos han superado para mantener vivo este saber?</span>
+          <textarea name="hs_retos" rows="3"></textarea>
+          <label>Otra información de interés:</label>
+          <textarea name="hs_otra_info" rows="2"></textarea>
+          <label>Relato específico de un portador:</label>
+          <textarea name="hs_relato" rows="4"></textarea>
+          <label>Documento de respaldo (PDF/Word):</label>
+          <span class="hint">Manuales, tutoriales, recetas, patrones, etc.</span>
+          <input type="file" id="hs_archivo" accept=".pdf,.doc,.docx">
+        </div>
+
+        <div id="contenedor_feminismo_comunal" class="linea-container">
+          <h4>🌸 Feminismo comunal</h4>
+          <label>Descripción general:</label>
+          <span class="hint">¿Cómo participan las mujeres y diversidades en esta experiencia?</span>
+          <textarea name="fc_descripcion_general" rows="3"></textarea>
+          <label>Innovación en enfoques de género:</label>
+          <span class="hint">¿Qué prácticas novedosas en equidad de género han implementado?</span>
+          <textarea name="fc_innovacion" rows="3"></textarea>
+          <label>Retos solucionados:</label>
+          <textarea name="fc_retos" rows="3"></textarea>
+          <label>Otra información:</label>
+          <textarea name="fc_otra_info" rows="2"></textarea>
+          <label>Relato específico:</label>
+          <textarea name="fc_relato" rows="4"></textarea>
+          <label>Documento de respaldo:</label>
+          <input type="file" id="fc_archivo" accept=".pdf,.doc,.docx">
+        </div>
+
+        <div id="contenedor_innovacion_popular" class="linea-container">
+          <h4>💡 Innovación popular y tecnológica</h4>
+          <label>Descripción general de la innovación:</label>
+          <span class="hint">¿Qué invento, adaptación o tecnología propia han desarrollado?</span>
+          <textarea name="in_descripcion_general" rows="3"></textarea>
+          <label>Detalle técnico o invención:</label>
+          <span class="hint">Explique el funcionamiento, materiales o principio de la innovación.</span>
+          <textarea name="in_innovacion" rows="3"></textarea>
+          <label>Retos técnicos o sociales solucionados:</label>
+          <textarea name="in_retos" rows="3"></textarea>
+          <label>Otra información:</label>
+          <textarea name="in_otra_info" rows="2"></textarea>
+          <label>Relato específico:</label>
+          <textarea name="in_relato" rows="4"></textarea>
+          <label>Documento técnico / Planos (PDF/Word):</label>
+          <span class="hint">Diagramas, planos, esquemas técnicos.</span>
+          <input type="file" id="in_archivo" accept=".pdf,.doc,.docx">
+        </div>
+
+        <div class="botones-navegacion">
+          <button type="button" class="btn-secundario" onclick="irA(0)">⬅ Atrás</button>
+          <button type="button" onclick="irA(2,1)">Siguiente ➡</button>
+        </div>
+      </div>
+
+      <!-- ===== FASE 3: PERFILES ===== -->
+      <div class="form-phase" id="pantalla2" style="display:none;">
+        <h3>👥 Protagonistas del saber</h3>
+        <div class="intro-seccion">Registre a los portadores y portadoras del conocimiento. Puede añadir tantos como necesite. Cada persona es una pieza clave del ecosistema comunal.</div>
+        <div id="contenedor_comuneros"></div>
+        <button type="button" class="btn-secundario" onclick="agregarComunero()" style="margin-top:15px;">+ Añadir otro protagonista</button>
+        <div class="botones-navegacion">
+          <button type="button" class="btn-secundario" onclick="irA(1)">⬅ Atrás</button>
+          <button type="button" onclick="irA(3,2)">Siguiente ➡</button>
+        </div>
+      </div>
+
+      <!-- ===== FASE 4: CIERRE ===== -->
+      <div class="form-phase" id="pantalla3" style="display:none;">
+        <h3>📋 Cierre y proyección</h3>
+
+        <label>Informe de abordaje UNACOM (PDF/Doc):</label>
+        <span class="hint">Documento oficial de la visita institucional. Opcional.</span>
+        <input type="file" id="informe_abordaje" accept=".pdf,.doc,.docx">
+
+        <label>Evidencias fotográficas del abordaje:</label>
+        <span class="hint">Puede seleccionar varias imágenes a la vez. Máximo 10MB por imagen. Las fotos se almacenan en Cloud Storage y Google Drive.</span>
+        <input type="file" id="evidencias_fotograficas_abordaje" multiple accept="image/*">
+
+        <hr>
+        <h3>📜 Memoria histórica y fuentes</h3>
+        <div class="intro-seccion" style="font-size:12px;">Registre documentos, actas, enlaces web, videos o referencias que respalden la experiencia.</div>
+        <div id="contenedor_memoria"></div>
+        <button type="button" class="btn-secundario" onclick="agregarMemoria()" style="margin-top:10px;">+ Añadir fuente o antecedente</button>
+
+        <hr>
+        <h3>🎓 Proyección académica</h3>
+        <label>Área de conocimiento UNACOM:</label>
+        <span class="hint">Ej: Ciencias Sociales, Agroecología, Tecnología, Salud Colectiva, Educación Popular</span>
+        <input type="text" id="area_unacom" placeholder="Área de conocimiento...">
+
+        <label>Seleccione los PNF vinculados:</label>
+        <span class="hint">Programas Nacionales de Formación oficiales de la UNACOM según Gaceta Oficial Nº 43.205. Puede marcar varios.</span>
+        <div class="checkbox-group" id="contenedor_pnf">
+          <label class="checkbox-item"><input type="checkbox" name="pnf_vinculado" value="PNF en Agroecología"> PNF en Agroecología</label>
+          <label class="checkbox-item"><input type="checkbox" name="pnf_vinculado" value="PNF en Administración"> PNF en Administración</label>
+          <label class="checkbox-item"><input type="checkbox" name="pnf_vinculado" value="PNF en Deportes"> PNF en Deportes</label>
+          <label class="checkbox-item"><input type="checkbox" name="pnf_vinculado" value="PNF en Informática"> PNF en Informática</label>
+          <label class="checkbox-item"><input type="checkbox" name="pnf_vinculado" value="PNF en Agroalimentación"> PNF en Agroalimentación</label>
+          <label class="checkbox-item"><input type="checkbox" name="pnf_vinculado" value="PNF en Procesamiento y Distribución de Alimentos"> PNF en Procesamiento y Distribución de Alimentos</label>
+          <label class="checkbox-item"><input type="checkbox" name="pnf_vinculado" value="PNF en Ingeniería Ambiental"> PNF en Ingeniería Ambiental</label>
+          <label class="checkbox-item"><input type="checkbox" name="pnf_vinculado" value="PNF en Construcción Civil"> PNF en Construcción Civil</label>
+          <label class="checkbox-item"><input type="checkbox" name="pnf_vinculado" value="PNF en Electricidad"> PNF en Electricidad</label>
+          <label class="checkbox-item"><input type="checkbox" name="pnf_vinculado" value="PNF en Ingeniería Mecánica"> PNF en Ingeniería Mecánica</label>
+          <label class="checkbox-item"><input type="checkbox" name="pnf_vinculado" value="PNF en Turismo"> PNF en Turismo</label>
+          <label class="checkbox-item"><input type="checkbox" name="pnf_vinculado" value="PNF en Medicina Veterinaria"> PNF en Medicina Veterinaria</label>
+          <label class="checkbox-item"><input type="checkbox" name="pnf_vinculado" value="PNF en Ingeniería en Mantenimiento"> PNF en Ingeniería en Mantenimiento</label>
+        </div>
+
+        <div class="botones-navegacion">
+          <button type="button" class="btn-secundario" onclick="irA(2)">⬅ Atrás</button>
+          <button type="submit" id="btn_enviar">✅ Finalizar registro</button>
+        </div>
+      </div>
+
+      <!-- ===== PANTALLA DE ÉXITO ===== -->
+      <div id="pantalla_exito" style="display:none;text-align:center;padding:30px 15px;">
+        <div style="font-size:5rem;margin-bottom:5px;">🎉</div>
+        <h3 style="font-size:2rem;color:var(--unacom-azul);margin-top:0;border:none;">¡Registro Exitoso!</h3>
+        <p style="color:var(--text-gris);margin-bottom:25px;">La información se ha procesado correctamente en el Ecosistema UNACOM 2.0</p>
+        <div style="background:linear-gradient(135deg,var(--unacom-azul),#1a1f4e);border:3px solid var(--unacom-mostaza);padding:35px 30px;border-radius:18px;margin:25px auto;max-width:450px;box-shadow:0 15px 40px rgba(38,50,98,0.3);">
+          <p style="color:rgba(255,255,255,0.7);font-size:0.75rem;text-transform:uppercase;letter-spacing:3px;margin:0 0 10px;">Código de Registro Oficial</p>
+          <p id="codigo_exito_texto" style="font-size:2.5rem;font-weight:700;color:#fff;margin:5px 0;word-break:break-all;text-shadow:0 3px 6px rgba(0,0,0,0.3);letter-spacing:1px;"></p>
+          <p style="color:rgba(255,255,255,0.5);font-size:0.7rem;margin-top:12px;">Guarde este código para futuras referencias</p>
+        </div>
+        <div style="background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);padding:15px 20px;border-radius:12px;margin:20px auto;max-width:450px;font-size:0.85rem;color:#065f46;text-align:left;">
+          📧 Se ha enviado el informe PDF a su correo.<br>
+          ☁️ Las evidencias se almacenaron en Cloud Storage y Drive.
+        </div>
+        <button type="button" onclick="location.reload()" style="max-width:340px;margin:25px auto 5px;font-size:15px;">📋 Registrar otra experiencia</button>
+      </div>
+
+    </form>
+  </div>
+
+  <script>
+    let mapa_territorial = {};
+    let currentScreen = 0;
+    const VALIDATORS = {
+      notEmpty: v => v && v.toString().trim().length > 0,
+      email: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v),
+      phone: v => /^[\d\s\-\+\(\)]{7,15}$/.test(v),
+      minLength: (v, min) => v && v.toString().trim().length >= parseInt(min)
+    };
+    function validarCampo(input) {
+      const vt = input.dataset.validate;
+      if (!vt) return true;
+      const v = input.value, errEl = document.getElementById('error_' + input.id);
+      let ok = vt === 'minLength' ? VALIDATORS.minLength(v, input.dataset.min) : (VALIDATORS[vt] ? VALIDATORS[vt](v) : true);
+      if (errEl) {
+        if (!ok && v.length > 0) { errEl.classList.add('show'); input.classList.add('error'); input.classList.remove('valid'); }
+        else if (ok && v.length > 0) { errEl.classList.remove('show'); input.classList.remove('error'); input.classList.add('valid'); }
+        else { errEl.classList.remove('show'); input.classList.remove('error','valid'); }
+      }
+      return ok;
+    }
+    function validarCheckboxGroup(name) {
+      const cbs = document.querySelectorAll(`input[name="${name}"]:checked`);
+      const errEl = document.getElementById('error_lineas');
+      if (cbs.length === 0) { if (errEl) errEl.classList.add('show'); return false; }
+      else { if (errEl) errEl.classList.remove('show'); return true; }
+    }
+    function validarPantalla(n) {
+      const pant = document.getElementById('pantalla' + n);
+      const inputs = pant.querySelectorAll('input[required]:not([type="checkbox"]), select[required], textarea[required]');
+      let ok = true, firstErr = null;
+      inputs.forEach(i => { if (i.type !== 'radio' && !validarCampo(i)) { ok = false; if (!firstErr) firstErr = i; } });
+      if (n === 0 && !validarCheckboxGroup('lineas_sistematizacion')) ok = false;
+      if (n === 2 && document.querySelectorAll('#contenedor_comuneros .linea-container').length === 0) { mostrarToast('⚠️ Agregue al menos un protagonista', 'error'); ok = false; }
+      if (!ok && firstErr) { firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' }); firstErr.focus(); }
+      return ok;
+    }
+    function mostrarToast(m, t) {
+      if (t === void 0) t = 'info';
+      const old = document.querySelector('.toast');
+      if (old) old.remove();
+      const toast = document.createElement('div');
+      toast.className = 'toast ' + t;
+      toast.textContent = m;
+      document.body.appendChild(toast);
+      setTimeout(() => { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.3s'; setTimeout(() => toast.remove(), 300); }, 3500);
+    }
+    function mostrarCarga(m) { document.getElementById('loadingOverlay').classList.add('show'); document.getElementById('loadingText').textContent = m || 'Procesando...'; }
+    function ocultarCarga() { document.getElementById('loadingOverlay').classList.remove('show'); }
+    window.onload = function() {
+      const sel = document.getElementById("estado");
+      sel.innerHTML = '<option value="">Conectando...</option>';
+      google.script.run.withSuccessHandler(mapa => {
+        mapa_territorial = mapa;
+        sel.innerHTML = '<option value="">Seleccione un estado</option>';
+        Object.keys(mapa_territorial).sort().forEach(e => sel.add(new Option(e, e)));
+      }).withFailureHandler(e => {
+        sel.innerHTML = '<option value="">Error</option>';
+        mostrarToast("Error al cargar estados", "error");
+      }).obtener_diccionario_territorial();
+      agregarComunero();
+      document.querySelectorAll('input[data-validate], select[data-validate], textarea[data-validate]').forEach(i => {
+        i.addEventListener('blur', () => validarCampo(i));
+        i.addEventListener('input', () => { if (i.classList.contains('error')) validarCampo(i); });
+      });
+    };
+    function cargarMunicipios() {
+      const e = document.getElementById("estado").value, m = document.getElementById("municipio"), p = document.getElementById("parroquia");
+      m.innerHTML = '<option value="">Seleccione un municipio</option>';
+      p.innerHTML = '<option value="">Seleccione un municipio primero</option>';
+      m.disabled = true; p.disabled = true;
+      if (e && mapa_territorial[e]) { Object.keys(mapa_territorial[e]).sort().forEach(x => m.add(new Option(x, x))); m.disabled = false; }
+      validarCampo(document.getElementById("estado"));
+    }
+    function cargarParroquias() {
+      const e = document.getElementById("estado").value, m = document.getElementById("municipio").value, p = document.getElementById("parroquia");
+      p.innerHTML = '<option value="">Seleccione una parroquia</option>';
+      if (e && m && mapa_territorial[e] && mapa_territorial[e][m]) { mapa_territorial[e][m].sort().forEach(x => p.add(new Option(x, x))); p.disabled = false; }
+      else p.disabled = true;
+      validarCampo(document.getElementById("municipio"));
+    }
+    function mostrarOpcionInstitucional() {
+      const s = document.getElementById('pertenece_unacom').value;
+      document.getElementById('contenedor_ente_externo').style.display = (s === 'No') ? 'block' : 'none';
+      document.getElementById('contenedor_direccion_unacom').style.display = (s === 'Sí') ? 'block' : 'none';
+      validarCampo(document.getElementById('pertenece_unacom'));
+    }
+    function agregarComunero() {
+      const div = document.createElement("div");
+      div.className = "linea-container";
+      div.style.display = "block";
+      div.innerHTML = `<label><span class="required-star">*</span> Nombre del protagonista:</label><span class="hint">Nombre completo del portador o portadora del saber.</span><input type="text" name="nombre_portador" required><label><span class="required-star">*</span> Cédula de identidad:</label><span class="hint">Número de cédula. Ej: 12.345.678</span><input type="text" name="cedula" required><label><span class="required-star">*</span> Teléfono:</label><input type="text" name="telefono" required><label><span class="required-star">*</span> Habilidad o saber específico:</label><span class="hint">¿Qué sabe hacer esta persona dentro de la experiencia? Ej: Maestra de tejido, vocero de finanzas, agricultor de café orgánico.</span><input type="text" name="habilidad_saber" required><label><span class="required-star">*</span> Nivel de estudio formal:</label><select name="nivel_estudio" required><option value="">Seleccione...</option><option value="Ninguno">Ninguno</option><option value="Primaria">Primaria</option><option value="Secundaria">Secundaria</option><option value="Técnico">Técnico</option><option value="Universitario">Universitario</option></select><label>Biografía o reseña (PDF/Doc):</label><span class="hint">Documento con la historia de vida del portador. Opcional.</span><input type="file" name="url_biografia" accept=".pdf,.doc,.docx"><button type="button" class="btn-secundario" onclick="this.parentElement.remove()" style="margin-top:20px;font-size:0.8rem;padding:10px;">🗑️ Eliminar protagonista</button>`;
+      document.getElementById("contenedor_comuneros").appendChild(div);
+    }
+    function agregarMemoria() {
+      const div = document.createElement("div");
+      div.className = "linea-container";
+      div.style.display = "block";
+      div.innerHTML = `<label>Tipo de elemento:</label><span class="hint">¿Es un enlace web, un documento físico, un video?</span><select name="tipo_elemento"><option value="Enlace Web o Red Social">Enlace Web o Red Social</option><option value="Documento Físico/Referencia">Referencia Bibliográfica o Documento</option></select><label>Descripción breve:</label><span class="hint">Ej: Acta de fundación, Video en YouTube, Blog de la comuna.</span><input type="text" name="descripcion_elemento"><label>URL o nombre del archivo:</label><input type="text" name="enlace_o_archivo"><button type="button" class="btn-secundario" onclick="this.parentElement.remove()" style="margin-top:20px;font-size:0.8rem;padding:10px;">🗑️ Eliminar fuente</button>`;
+      document.getElementById("contenedor_memoria").appendChild(div);
+    }
+    function bloquearLineas() {
+      const c = document.getElementById("chk_contacto_inicial");
+      document.querySelectorAll(".chk_linea").forEach(chk => { chk.checked = false; chk.disabled = c.checked; });
+      validarCheckboxGroup('lineas_sistematizacion');
+    }
+    function irA(dest, act) {
+      if (act !== undefined && dest > act && !validarPantalla(act)) { mostrarToast('⚠️ Complete los campos requeridos antes de avanzar', 'error'); return; }
+      if (dest === 1) {
+        ['historia_lucha','haceres_saberes','feminismo_comunal','innovacion_popular'].forEach(id => { const d = document.getElementById('contenedor_' + id); if (d) d.style.display = 'none'; });
+        document.querySelectorAll('input[name="lineas_sistematizacion"]:checked').forEach(chk => {
+          if (chk.value === 'contacto_inicial') return;
+          const d = document.getElementById("contenedor_" + chk.value);
+          if (d) d.style.display = 'block';
+        });
+      }
+      document.querySelectorAll('.form-phase').forEach(f => f.style.display = 'none');
+      document.getElementById('pantalla' + dest).style.display = 'block';
+      document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+      for (let i = 0; i <= dest; i++) document.getElementById('step' + i).classList.add('active');
+      currentScreen = dest;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    const aBase64 = f => new Promise(r => { const rd = new FileReader(); rd.onload = ev => r({ b64: ev.target.result.split(',')[1], mime: f.type, nom: f.name }); rd.readAsDataURL(f); });
+    document.getElementById('formulario_laboratorio').onsubmit = async function(e) {
+      e.preventDefault();
+      if (!validarPantalla(3)) { mostrarToast('⚠️ Complete los campos requeridos', 'error'); return; }
+      const btn = document.getElementById('btn_enviar');
+      btn.disabled = true;
+      btn.innerText = "Preparando datos...";
+      mostrarCarga('Preparando datos del registro...');
+      try {
+        const payload = {
+          identificacion_experiencia: {},
+          saber_comunero: { lineas_sistematizacion: [] },
+          protagonistas: [],
+          cierre_y_proyeccion: { elementos_memoria_historica: [], ruta_trabajo_sugerida: [] },
+          metadatos_registro: {
+            registrador: document.getElementById('nombre_registrador')?.value || '',
+            telefono: document.getElementById('telefono_registrador')?.value || '',
+            correo: document.getElementById('correo_registrador')?.value || '',
+            pertenece_unacom: document.getElementById('pertenece_unacom')?.value || '',
+            vicerrectorado: document.getElementById('direccion_unacom')?.value || '',
+            ente_externo: document.getElementById('ente_externo')?.value || ''
+          }
+        };
+        ['nombre_experiencia','estado','municipio','parroquia','comuna_circuito_comunal','tipo_organizacion','fecha_abordaje','fecha_iniciacion_experiencia'].forEach(id => {
+          if (document.getElementById(id)) payload.identificacion_experiencia[id] = document.getElementById(id).value;
+        });
+        payload.saber_comunero.descripcion_general_saber_hacer = document.getElementById('descripcion_general_saber')?.value || '';
+        const campoMap = { 'historia_lucha': 'hl', 'haceres_saberes': 'hs', 'feminismo_comunal': 'fc', 'innovacion_popular': 'in' };
+        for (const chk of document.querySelectorAll('input[name="lineas_sistematizacion"]:checked')) {
+          if (chk.value === 'contacto_inicial') continue;
+          payload.saber_comunero.lineas_sistematizacion.push(chk.value);
+          const cfg = campoMap[chk.value];
+          if (cfg) {
+            payload.saber_comunero[chk.value] = {
+              descripcion_general_practica: document.querySelector(`textarea[name="${cfg}_descripcion_general"]`)?.value || '',
+              innovacion_en_esta_linea: document.querySelector(`textarea[name="${cfg}_innovacion"]`)?.value || '',
+              retos_solucionados_en_esta_linea: document.querySelector(`textarea[name="${cfg}_retos"]`)?.value || '',
+              otra_informacion: document.querySelector(`textarea[name="${cfg}_otra_info"]`)?.value || '',
+              relato_especifico: document.querySelector(`textarea[name="${cfg}_relato"]`)?.value || ''
+            };
+          }
+        }
+        for (const n of document.querySelectorAll('#contenedor_comuneros .linea-container')) {
+          const p = {
+            nombre_portador: n.querySelector('input[name="nombre_portador"]')?.value || '',
+            cedula: n.querySelector('input[name="cedula"]')?.value || '',
+            telefono: n.querySelector('input[name="telefono"]')?.value || '',
+            habilidad_saber: n.querySelector('input[name="habilidad_saber"]')?.value || '',
+            nivel_estudio: n.querySelector('select[name="nivel_estudio"]')?.value || ''
+          };
+          const fb = n.querySelector('input[name="url_biografia"]');
+          if (fb && fb.files[0]) p.url_biografia_b64 = await aBase64(fb.files[0]);
+          payload.protagonistas.push(p);
+        }
+        payload.cierre_y_proyeccion.pnf_vinculado = [];
+        document.querySelectorAll('input[name="pnf_vinculado"]:checked').forEach(cb => payload.cierre_y_proyeccion.pnf_vinculado.push(cb.value));
+        payload.cierre_y_proyeccion.area_unacom = document.getElementById('area_unacom')?.value || '';
+        for (const n of document.querySelectorAll('#contenedor_memoria .linea-container')) {
+          payload.cierre_y_proyeccion.elementos_memoria_historica.push({
+            tipo_elemento: n.querySelector('select[name="tipo_elemento"]')?.value || '',
+            descripcion_elemento: n.querySelector('input[name="descripcion_elemento"]')?.value || '',
+            enlace_o_archivo: n.querySelector('input[name="enlace_o_archivo"]')?.value || ''
+          });
+        }
+        const fA = document.getElementById('informe_abordaje');
+        if (fA && fA.files[0]) { mostrarCarga('Subiendo informe...'); payload.cierre_y_proyeccion.informe_abordaje_b64 = await aBase64(fA.files[0]); }
+        const fotos = document.getElementById('evidencias_fotograficas_abordaje');
+        if (fotos && fotos.files.length > 0) {
+          const MAX = 10 * 1024 * 1024;
+          for (let i = 0; i < fotos.files.length; i++) {
+            if (fotos.files[i].size > MAX) { mostrarToast('⚠️ Imagen muy grande: ' + fotos.files[i].name, 'error'); btn.disabled = false; btn.innerText = "✅ Finalizar registro"; ocultarCarga(); return; }
+          }
+          mostrarCarga('Subiendo evidencias...');
+          payload.cierre_y_proyeccion.evidencias_b64 = await Promise.all(Array.from(fotos.files).map(aBase64));
+        }
+        mostrarCarga('Generando informe PDF...');
+        google.script.run.withSuccessHandler(res => {
+          ocultarCarga();
+          if (res.success) {
+            document.getElementById("formulario_laboratorio").style.display = "none";
+            document.querySelector(".progress-container").style.display = "none";
+            document.getElementById("codigo_exito_texto").innerText = res.codigo;
+            document.getElementById("pantalla_exito").style.display = "block";
+            window.scrollTo(0, 0);
+            mostrarToast('🎉 Registro exitoso: ' + res.codigo, 'success');
+          } else {
+            mostrarToast("❌ Error: " + res.error, "error");
+            btn.disabled = false;
+            btn.innerText = "✅ Finalizar registro";
+          }
+        }).withFailureHandler(err => {
+          ocultarCarga();
+          mostrarToast("❌ Error de conexión", "error");
+          btn.disabled = false;
+          btn.innerText = "✅ Finalizar registro";
+        }).procesar_formulario_v2(payload);
+      } catch (e) {
+        ocultarCarga();
+        mostrarToast("❌ Error: " + e.message, "error");
+        btn.disabled = false;
+        btn.innerText = "✅ Finalizar registro";
+      }
+    };
+  </script>
+</body>
+</html>
